@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import Calendar from './components/calendar'
-import './App.css'
 
-/** Tests
-const myCalendarElementTest2 = [
+export const myCalendarElementTest2 = [
   { start: 30, end: 729 },
   { start: 560, end: 570 },
   { start: 610, end: 670 }
 ]
-const myCalendarElementTest3 = [
+export const myCalendarElementTest3 = [
   { start: 30, end: 150 },
   { start: 30, end: 70 },
   { start: 30, end: 140 },
@@ -16,8 +14,8 @@ const myCalendarElementTest3 = [
   { start: 560, end: 620 },
   { start: 610, end: 670 }
 ]
-**/
-const myCalendarElement = [
+
+export const myCalendarElement = [
   { start: 30, end: 150 },
   { start: 540, end: 600 },
   { start: 560, end: 620 },
@@ -29,7 +27,7 @@ class App extends Component {
     return (
       <div className='App'>
         <div className='App-content'>
-          <Calendar elements={myCalendarElement} />
+          <Calendar elements={myCalendarElementTest3} />
         </div>
       </div>
     )

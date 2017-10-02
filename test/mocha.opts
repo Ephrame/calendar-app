@@ -1,0 +1,4 @@
+--compilers js:babel-core/register
+--require test/init
+--reporter spec
+--require chai
