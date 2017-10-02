@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import isEqual from 'lodash/isEqual'
 
 class ListEvenements extends Component {
+  shouldComponentUpdate (newProps) {
+    if(!isEqual(newProps.evenements, this.props.evenements)) {
+      return true
+    }
+    return false
+  }
   render () {
     return (
       <div className='list-evenement'>
@@ -14,16 +21,20 @@ class ListEvenements extends Component {
           return (
             <div
               className='list-evenement__element'
-              key={elm.end + elm.start}
+              key={key}
               style={{
                 height: `${purcentTT}px`,
                 left: `${leftElm}%`,
-                marginLeft: `${colision === 1 ? '0px' : '2%'}`,
+                marginLeft: `${colision === 1 ? '0px' : '1%'}`,
                 top: `${elm.start}px`,
                 width: `${widthElm}%`
               }}
               >
               <div className='list-evenement__element__decor' />
+              <div className='list-evenement__element__comment' >
+                <span className='list-evenement__element__comment__primary-text'>Sample Item</span>
+                <span className='list-evenement__element__comment__secondary-text'>Sample location</span>
+              </div>
             </div>
           )
         })}

@@ -33,8 +33,24 @@
 .list-evenement__element {
   border: 1px solid black;
   position: absolute;
+  display: flex;
   background-color: white
 
+}
+.list-evenement__element__comment {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-evenement__element__comment__primary-text {
+  font-size: 15px;
+  margin: 5px;
+  color: #2980b9;
+}
+
+.list-evenement__element__comment__secondary-text {
+  font-size: 10px;
+  margin: 5px;
 }
 
 .list-evenement__element__decor {

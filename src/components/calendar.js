@@ -5,6 +5,8 @@ import ListEvenements from './list-evenement'
 import {HourColumn} from './hour-column'
 
 import {transformSlot} from '../normalizer'
+import { addDayEmitter } from '../index.js'
+
 
 class Calendar extends Component {
   constructor (props) {
@@ -13,8 +15,14 @@ class Calendar extends Component {
       evenements: transformSlot(props.elements).newElements
     }
   }
-  componentWillReceiveProps (newProps, props) {
-    // To Do diff to render
+  componentWillMount () {
+    addDayEmitter.on('transformDays', newElms => {
+      this.setState({evenements: transformSlot(newElms).newElements})
+    })
+
+    addDayEmitter.on('addDays', newElms => {
+      this.setState({evenements: transformSlot([...this.props.elements, ...newElms]).newElements})
+    })
   }
   render () {
     return (

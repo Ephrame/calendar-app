@@ -27,7 +27,7 @@ class App extends Component {
     return (
       <div className='App'>
         <div className='App-content'>
-          <Calendar elements={myCalendarElementTest3} />
+          <Calendar elements={myCalendarElement} />
         </div>
       </div>
     )
