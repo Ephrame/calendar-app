@@ -1,55 +1,33 @@
 import React, { Component } from 'react'
 import Calendar from './components/calendar'
-import './App.css'
-import moment from 'moment'
-const myCalendarElement = [
-  {
-    start: '30',
-    end: '90',
-    comment: 'First Exemple'
-  },
-  {
-    start: '30',
-    end: '70',
-    comment: 'First Exemple'
-  }
+
+export const myCalendarElementTest2 = [
+  { start: 30, end: 729 },
+  { start: 560, end: 570 },
+  { start: 610, end: 670 }
+]
+export const myCalendarElementTest3 = [
+  { start: 30, end: 150 },
+  { start: 30, end: 70 },
+  { start: 30, end: 140 },
+  { start: 30, end: 70 },
+  { start: 560, end: 620 },
+  { start: 610, end: 670 }
 ]
 
-function transformElements (elms) {
-  const referenceHour = moment().hour(9).minute(0)
-  return elms.reduce((acc, planningElm) => {
-    const hourSinceReferenceHour = moment(referenceHour).add(planningElm.start, 'minutes')
-    const endHourSinceReferenceHour = moment(referenceHour).add(planningElm.end, 'minutes')
-    const hourFind = hourSinceReferenceHour.hour()
-    const endHour = endHourSinceReferenceHour.hour()
-    // const hourInTotalSinceReference = referenceHour.add(planningElm.end, 'minutes')
-    const diffHour = endHour - hourFind
-    const diffArray = Array(diffHour + 1).fill(1)
-    diffArray.map((diffHour, index) => {
-      const newReference = moment().hour(hourFind + index).minute(0)
-      const diffMinutesToStart = hourSinceReferenceHour.diff(newReference, 'minutes')
-      const diffMinutesToEnd = endHourSinceReferenceHour.diff(newReference, 'minutes')
-      acc[newReference.hour()] = [
-        ...(acc[newReference.hour()] ? acc[newReference.hour()] : {}),
-        {
-          ...planningElm,
-          diffMinute: [diffMinutesToStart + 1 > 0 ? diffMinutesToStart : 0, diffMinutesToEnd + 1]
-        }
-      ]
-    })
-    return acc
-  }, {})
-}
+export const myCalendarElement = [
+  { start: 30, end: 150 },
+  { start: 540, end: 600 },
+  { start: 560, end: 620 },
+  { start: 610, end: 670 }
+]
 
 class App extends Component {
   render () {
     return (
       <div className='App'>
-        <header className='App-header'>
-          <h1 className='App-title'>Calendar App</h1>
-        </header>
         <div className='App-content'>
-          <Calendar elements={transformElements(myCalendarElement)} />
+          <Calendar elements={myCalendarElement} />
         </div>
       </div>
     )

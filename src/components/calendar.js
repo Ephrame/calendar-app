@@ -1,26 +1,36 @@
 import React, {Component} from 'react'
-import moment from 'moment'
-import Evenement from './evenement'
-import Patern from './patern'
+import PropTypes from 'prop-types'
+
+import ListEvenements from './list-evenement'
+import {HourColumn} from './hour-column'
+
+import {transformSlot} from '../normalizer'
+import { addDayEmitter } from '../index.js'
 
 
 class Calendar extends Component {
-  render () {
-    const hourArray = Array(13).fill(1).map((elm, index) => {
-      const hour = 9 + index
-      return hour
+  constructor (props) {
+    super(props)
+    this.state = {
+      evenements: transformSlot(props.elements).newElements
+    }
+  }
+  componentWillMount () {
+    addDayEmitter.on('transformDays', newElms => {
+      this.setState({evenements: transformSlot(newElms).newElements})
     })
+
+    addDayEmitter.on('addDays', newElms => {
+      this.setState({evenements: transformSlot([...this.props.elements, ...newElms]).newElements})
+    })
+  }
+  render () {
     return (
       <div className='calendar'>
-        {
-          hourArray.map(elm => {
-            return (
-              <div>
-                <Evenement evenementFind={this.props.elements[elm]} hourOfEvenement={elm}/>
-              </div>
-            )
-          })
-        }
+        <HourColumn />
+        <div className='calendar__content'>
+          <ListEvenements evenements={this.state.evenements} />
+        </div>
       </div>
     )
   }
@@ -29,4 +39,13 @@ class Calendar extends Component {
 Calendar.defaultProps = {
   elements: {}
 }
+Calendar.propTypes = {
+  elements: PropTypes.arrayOf(
+    PropTypes.shape({
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number.isRequired
+    })
+  )
+}
+
 export default Calendar
